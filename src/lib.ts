@@ -1,9 +1,9 @@
-export function renderBlock (elementId, html) {
+export function renderBlock (elementId:string, html:string) {
   const element = document.getElementById(elementId)
   element.innerHTML = html
 }
 
-export function renderToast (message: { text: string; type: string }, action: { handler: () => void; name: string }) {
+export function renderToast (message: any, action: any = null) {
   let messageText = ''
   
   if (message != null) {
@@ -20,13 +20,13 @@ export function renderToast (message: { text: string; type: string }, action: { 
     messageText
   )
 
-  /*const button = document.getElementById('toast-main-action')
+  const button = document.getElementById('toast-main-action')
   if (button != null) {
-    button.onclick = function (message) {
+    button.onclick = function() {
       if (action != null && action.handler != null) {
         action.handler()
       }
       renderToast(null)
     }
-  }*/
+  }
 }

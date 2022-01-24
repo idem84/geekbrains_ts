@@ -1,39 +1,44 @@
 import { renderBlock } from "./lib.js";
-import { Dates } from "./date.js";
+import { SearchFormData } from "./pattern-searchform.js";
 
-export function renderSearchFormBlock(
-  startDate: { year: number; month: number; day: number },
-  endDate: { year: number; month: number; day: number }
-) {
-  let now: Date = new Date(); //получаем нынешнюю дату
-  let day = now.getDate(); //берем день
-  let month = now.getMonth() + 1; //месяц ,увеличиваем на 1,так как январь 0
-  let year = now.getFullYear(); //берем год
-  let lastDayOfMonth = new Date(now.getFullYear(), month + 1, 0); //находим последний день следующего месяца
-  let lastMonth = lastDayOfMonth.getMonth() + 1; //следующий месяц
-  let lastDay = lastDayOfMonth.getDate(); //последний день
-  let dateMin: Dates = { year: year, month: month, day: day };
-  let dateMax: Dates = { year: year, month: lastMonth, day: lastDay };
-  let dateMinString: string = `${year}-${month}-${day}`; // чтобы сравнить даты меняем тип на строки
-  let dateMaxString: string = `${year}-${lastMonth}-${lastDay}`;
-  let startDateString: string = `${startDate.year}-${startDate.month}-${startDate.day}`;
-  let endDateString: string = `${endDate.year}-${endDate.month}-${endDate.day}`;
-  let arrivalDate: Dates;
-  let departureDate: Dates;
-  let arrivalDateString: string;
-  let departureDateString: string;
+function formatDate(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
 
-  if (startDateString >= dateMinString && endDateString <= dateMaxString) {
-    arrivalDate = { year: year, month: month, day: day + 1 }; //к текущей дате добавляем 1 день
-    arrivalDateString = `${arrivalDate.year}-${arrivalDate.month}-${arrivalDate.day}`; //приводим ее к строке
-    departureDate = {
-      year: arrivalDate.year,
-      month: arrivalDate.month,
-      day: arrivalDate.day + 2,
-    }; //выезд +2 дня от даты вьезда
+function addDays(date: Date, days: number): Date {
+  date.setDate(date.getDate() + days);
+  return date;
+}
 
-    departureDateString = `${departureDate.year}-${departureDate.month}-${departureDate.day}`;
+function getLastDayOfMonth(date: Date): Date {
+  date.setMonth(date.getMonth() + 2, 0);
+  return date;
+}
+
+export function renderSearchFormBlock(dateEnter?: Date, dateExit?: Date): void {
+  const nowDate = formatDate(new Date());
+  const enter = formatDate(dateEnter || addDays(new Date(), 1));
+  const exit = formatDate(dateExit || addDays(new Date(), 3));
+  const lastDateOfMonth = formatDate(getLastDayOfMonth(new Date()));
+
+  function getFormValue(e) {
+    e.preventDefault();
+    const dataValue: SearchFormData = {
+      city: (<HTMLInputElement>document.getElementById("city")).value,
+      checkIn: (<HTMLInputElement>document.getElementById("check-in-date"))
+        .value,
+      checkOut: (<HTMLInputElement>document.getElementById("check-out-date"))
+        .value,
+      price: (<HTMLInputElement>document.getElementById("max-price")).value,
+    };
+    console.log(dataValue);
+    funcSearch(dataValue);
   }
+
+  function funcSearch(data: SearchFormData) {
+    console.log(data);
+  }
+
   renderBlock(
     "search-form-block",
     `
@@ -42,7 +47,7 @@ export function renderSearchFormBlock(
         <div class="row">
           <div>
             <label for="city">Город</label>
-            <input id="city" type="text" disabled value="Санкт-Петербург" />
+            <input id="city" type="text" disabled value="Москва" />
             <input type="hidden" disabled value="59.9386,30.3141" />
           </div>
           <!--<div class="providers">
@@ -53,22 +58,24 @@ export function renderSearchFormBlock(
         <div class="row">
           <div>
             <label for="check-in-date">Дата заезда</label>
-            <input id="check-in-date" type="date" value=${arrivalDateString} min=${dateMinString} max=${dateMaxString} name="checkin" />
+            <input id="check-in-date" type="date" value="${enter}" min="${nowDate}" max="${lastDateOfMonth}" name="checkin" />
           </div>
           <div>
             <label for="check-out-date">Дата выезда</label>
-            <input id="check-out-date" type="date" value=${departureDateString} min=${dateMinString} max=${dateMaxString} name="checkout" />
+            <input id="check-out-date" type="date" value="${exit}" min="${nowDate}" max="${lastDateOfMonth}" name="checkout" />
           </div>
           <div>
             <label for="max-price">Макс. цена суток</label>
             <input id="max-price" type="text" value="" name="price" class="max-price" />
           </div>
           <div>
-            <div><button>Найти</button></div>
+            <div><button type="submit" >Найти</button></div>
           </div>
         </div>
       </fieldset>
     </form>
     `
   );
+  const form = document.querySelector("form");
+  form.addEventListener("submit", getFormValue);
 }
