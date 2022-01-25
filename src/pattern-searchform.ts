@@ -4,3 +4,4 @@ export interface SearchFormData {
   checkOut: string;
   price: string;
 }
+  

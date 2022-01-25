@@ -52,7 +52,7 @@ export function renderSearchResultsBlock() {
               <p class="price">13000&#8381;</p>
             </div>
             <div class="result-info--map"><i class="map-icon"></i> 2.5км от вас</div>
-            <div class="result-info--descr">Комфортный апарт-отель в самом сердце Санкт-Петербрга. К услугам гостей номера с видом на город и бесплатный Wi-Fi.</div>
+            <div class="result-info--descr">Комфортный апарт-отель в самом сердце Москвы. К услугам гостей номера с видом на город и бесплатный Wi-Fi.</div>
             <div class="result-info--footer">
               <div>
                 <button>Забронировать</button>
@@ -73,7 +73,7 @@ export function renderSearchResultsBlock() {
               <p class="price">13000&#8381;</p>
             </div>
             <div class="result-info--map"><i class="map-icon"></i> 1.1км от вас</div>
-            <div class="result-info--descr">Отель Akyan St-Petersburg с бесплатным Wi-Fi на всей территории расположен в историческом здании Санкт-Петербурга.</div>
+            <div class="result-info--descr">Отель Akyan St-Petersburg с бесплатным Wi-Fi на всей территории расположен в историческом здании Москвы.</div>
             <div class="result-info--footer">
               <div>
                 <button>Забронировать</button>

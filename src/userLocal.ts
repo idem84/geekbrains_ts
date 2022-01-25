@@ -17,8 +17,8 @@ export function getUserData() {
 
   return user;
 }
-
 export function getFavoritesAmount() {
   const favoritesAmount = JSON.parse(localStorage.getItem("favoritesAmount"));
+
   return favoritesAmount;
 }

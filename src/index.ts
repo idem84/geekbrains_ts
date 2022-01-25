@@ -3,6 +3,7 @@ import { renderSearchStubBlock } from "./search-results.js";
 import { renderUserBlock } from "./user.js";
 import { renderToast } from "./lib.js";
 import { getUserData, getFavoritesAmount, User } from "./userLocal.js";
+import { getTodosInfo } from "./todos.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   const user: User = getUserData();
@@ -23,3 +24,4 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   );
 });
+getTodosInfo(10);
