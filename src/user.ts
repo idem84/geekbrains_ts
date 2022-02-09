@@ -1,20 +1,46 @@
 import { renderBlock } from "./lib.js";
 
+export function getUserData(username: unknown, userAvatar: unknown) {
+  let checkedUser = {
+    username: "Not set ",
+    userAvatar: "avatar.jpg",
+  };
+  if (typeof username === "string") {
+    checkedUser.username = username;
+  }
+  if (typeof userAvatar === "string") {
+    checkedUser.userAvatar = userAvatar;
+  }
+  return checkedUser;
+}
+
+export function getFavoritesAmount(favoritesAmount: unknown) {
+  let checkedAmount: number = 0;
+  if (typeof favoritesAmount === "string") {
+    favoritesAmount = +favoritesAmount;
+  }
+
+  if (typeof favoritesAmount === "number") {
+    checkedAmount = favoritesAmount;
+  }
+  return checkedAmount;
+}
+
 export function renderUserBlock(
-  favoriteItemsAmount: number,
   userName: string,
-  userImg: string
+  userPicture: string,
+  favoriteItemsAmount?: number
 ) {
   const favoritesCaption = favoriteItemsAmount
     ? favoriteItemsAmount
     : "ничего нет";
-  const hasFavoriteItems = favoriteItemsAmount ? true : false;
+  const hasFavoriteItems = !!favoriteItemsAmount;
 
   renderBlock(
     "user-block",
     `
     <div class="header-container">
-      <img class="avatar" src="${userImg}" alt="${userName}" />
+      <img class="avatar" src="./img/${userPicture}" alt="${userName}" />
       <div class="info">
           <p class="name">${userName}</p>
           <p class="fav">

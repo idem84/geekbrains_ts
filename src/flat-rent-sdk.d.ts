@@ -1,31 +1,15 @@
-export const database: {
-  id: string
-  title: string
-  details: string
-  photos: string[]
-  coordinates: number[]
-  bookedDates: any[]
-  price: number
-}[]
+import { SearchFormData, SearchFormResults } from './search-interface'
 
 export function cloneDate(date: Date): Date
 export function addDays(date: Date, days: number): Date
 
-export const backendPort: number
-export const localStorageKey: String
+export class FlatRentSdk {
 
-export interface FlatRentSdk {
-  get(id: string): Promise<Object | null>
+    get(id: string):Promise<Object|null>
+    search(parameters: SearchFormData): Promise<SearchFormResults[]|null>
+    book(flatId:number, checkInDate: Date, checkOutDate: Date): number 
+    _calculateDifferenceInDays(startDate: Date, endDate: Date): number
+    _generateDateRange(from: Date, to: Date): Date[] 
 
-  search(parameters: String | Date | number): Object[]
-
-  book(flatId: number, checkInDate: Date, checkOutDate: Date): number
-
-  _assertDatesAreCorrect(checkInDate: Date, checkOutDate: Date): void
-
-  _resetTime(data: Date): void
-
-  _calculateDifferenceInDays(startDate: Date, endDate: Date): number
-
-  _generateDateRange(from: Date, to: Date): Date
+    _generateTransactionId(): number
 }

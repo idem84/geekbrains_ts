@@ -1,9 +1,11 @@
+import { ToastMessage, ToastAction } from './main-interface.js'
+
 export function renderBlock (elementId:string, html:string) {
-  const element = document.getElementById(elementId)
-  element.innerHTML = html
+  const element: HTMLElement | null = document.getElementById(elementId)
+  element ? element.innerHTML = html : element
 }
 
-export function renderToast (message: any, action: any = null) {
+export function renderToast (message:ToastMessage | null, action:ToastAction | null) {
   let messageText = ''
   
   if (message != null) {
@@ -21,12 +23,13 @@ export function renderToast (message: any, action: any = null) {
   )
 
   const button = document.getElementById('toast-main-action')
+
   if (button != null) {
     button.onclick = function() {
       if (action != null && action.handler != null) {
         action.handler()
       }
-      renderToast(null)
+      renderToast(null, null)
     }
   }
 }
