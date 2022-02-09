@@ -1,6 +1,6 @@
-# Урок 5. Классы и ООП
+# Урок 6. Расширенная настройка tsconfig
 
-1. Реализовать абстрактный класс MyGraphicsPrimitive2D у которого есть следующие свойства: прямоугольная область(2 точки, левая верхняя и правая нижняя), описывающая примитив; 
-2. метод - переместить примитив на заданное смещение;. 
-3. От него дожен наследоваться абстрактный класс MyAreaPrimitive2D, у которого есть метод площадь. 
-4. От него должны наследоваться класс MyCircle, у него есть свойства: центр окружности и ее радиус, а также должен наследоваться класс MyRectangle с свойствами: ширина и высота
+Взять проект со 2го урока и проделать следующее:
+1. Включить флаги noImplicitAny, strictNullChecks, strictFunctionTypes, strictPropertyInitialization и исправить все возникшие в проекте ошибки.
+2. * Включить флаги strictBindCallApply, noImplicitThis, noPropertyAccessFromIndexSignature, noUncheckedIndexedAccess, noImplicitReturns, noFallthroughCasesInSwitch и исправить все возникшие в проекте ошибки.
+3. * Для опций noUnusedLocals и noUnusedParameters установить аналогичные правила ESLint.
